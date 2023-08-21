@@ -13,6 +13,12 @@ pipeline {
             }
         }
         stage("test") {
+
+            when {
+                expression {
+                    params.executeTests
+                }
+            }
             steps {
                 script {
                     echo "building the docker image..."
