@@ -5,35 +5,36 @@ pipeline {
         booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
     stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
+
         stage("build") {
             steps {
                 script {
-                    echo "building the application..."
+                    gv.buildApp()
                 }
             }
         }
-        stage("test") {
 
-            when {
-                expression {
-                    params.executeTests
-                }
-            }
+        stage("test") {
             steps {
                 script {
-                    echo "building the docker image..."
-                    
+                    gv.testApp()
                 }
             }
         }
+        
         stage("deploy") {
             steps {
                 script {
-                    echo "deploying the application..."
-                    echo "deploying version ${params.VERSION}"
+                    gv.deployApp()
                 }
             }
         }
     }
 }
-
