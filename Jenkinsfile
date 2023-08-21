@@ -4,14 +4,14 @@ pipeline {
         maven 'Maven'
     }
     stages {
-        stage("build jar") {
+        stage("build") {
             steps {
                 script {
                     echo "building the application..."
                 }
             }
         }
-        stage("build image") {
+        stage("test") {
             steps {
                 script {
                     echo "building the docker image..."
